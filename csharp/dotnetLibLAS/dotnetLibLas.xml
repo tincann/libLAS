@@ -32,18 +32,6 @@
             </summary>
             <returns>LASVLRH opaque pointer </returns>
         </member>
-        <member name="M:LibLAS.LASVariableLengthRecord.GetData(System.Byte[]@)">
-            <summary>
-            Gets the data stream for the variable length record as an array of bytes
-            </summary>
-            <param name="data">a empty array of bytes where place the array</param>
-        </member>
-        <member name="M:LibLAS.LASVariableLengthRecord.SetData(System.Byte[]@)">
-            <summary>
-            Sets the data stream for the variable length record as an array of bytes
-            </summary>
-            <param name="data">array of bytes</param>
-        </member>
         <member name="P:LibLAS.LASVariableLengthRecord.UserId">
             <summary>
             the User Id for the variable length record.
@@ -71,6 +59,18 @@
             the reserved value of the variable length record.  
             </summary>
             <remarks>This should be 0 and should always be 0.</remarks>
+        </member>
+        <member name="M:LibLAS.LASVariableLengthRecord.GetData(System.Byte[]@)">
+            <summary>
+            Gets the data stream for the variable length record as an array of bytes
+            </summary>
+            <param name="data">a empty array of bytes where place the array</param>
+        </member>
+        <member name="M:LibLAS.LASVariableLengthRecord.SetData(System.Byte[]@)">
+            <summary>
+            Sets the data stream for the variable length record as an array of bytes
+            </summary>
+            <param name="data">array of bytes</param>
         </member>
         <member name="T:LibLAS.LASGuid">
             <summary>
@@ -162,6 +162,36 @@
             </summary>
             
         </member>
+        <member name="F:LibLAS.LASHeader.FormatVersion.eVersionMajorMin">
+            Minimum of major component
+        </member>
+        <member name="F:LibLAS.LASHeader.FormatVersion.eVersionMajorMax">
+            Maximum of major component        
+        </member>
+        <member name="F:LibLAS.LASHeader.FormatVersion.eVersionMinorMin">
+            Minimum of minor component
+        </member>
+        <member name="F:LibLAS.LASHeader.FormatVersion.eVersionMinorMax">
+            Maximum of minor component
+        </member>
+        <member name="T:LibLAS.LASHeader.PointFormat">
+            Versions of point record format.
+        </member>
+        <member name="F:LibLAS.LASHeader.PointFormat.ePointFormat0">
+            Point Data Format \e 0
+        </member>
+        <member name="F:LibLAS.LASHeader.PointFormat.ePointFormat1">
+            Point Data Format \e 1
+        </member>
+        <member name="T:LibLAS.LASHeader.PointSize">
+            Number of bytes of point record storage in particular format.
+        </member>
+        <member name="F:LibLAS.LASHeader.PointSize.ePointSize0">
+            Size of point record in data format \e 0
+        </member>
+        <member name="F:LibLAS.LASHeader.PointSize.ePointSize1">
+            Size of point record in data format \e 1
+        </member>
         <member name="M:LibLAS.LASHeader.GetPointer">
             <summary>
             gets the opaque pointer to the LASHeaderH instance.
@@ -187,6 +217,106 @@
             Copy the LASHeader in a new instance
             </summary>
             <returns>new LASHeader instance.</returns>
+        </member>
+        <member name="P:LibLAS.LASHeader.FileSignature">
+            <summary>
+            Get ASPRS LAS file signature.
+            </summary>
+            <remarks>The only value allowed as file signature is "LASF",</remarks>
+        </member>
+        <member name="P:LibLAS.LASHeader.FileSourceId">
+            <summary>
+            file source identifier.
+            </summary>
+            <remarks> should be set to a value between 1 and 65535.</remarks>
+        </member>
+        <member name="P:LibLAS.LASHeader.Reserved">
+            <summary>
+            Get value field reserved by the ASPRS LAS Specification.
+            </summary>
+            <remarks>This field is always filled with 0.</remarks>
+        </member>
+        <member name="P:LibLAS.LASHeader.ProjectId">
+            <summary>
+            Get project identifier.
+            </summary>
+            <remarks>return Global Unique Identifier.</remarks>
+        </member>
+        <member name="P:LibLAS.LASHeader.VersionMajor">
+            <summary>
+            major component of version of LAS format.
+            </summary>
+            <remarks>Always 1 as the only valid value. value between
+            eVersionMajorMin and eVersionMajorMax (always 1).</remarks>
+        </member>
+        <member name="P:LibLAS.LASHeader.VersionMinor">
+            <summary>
+            minor component of version of LAS format.
+            </summary>
+            <remarks>Valid values are 1 or 0. value between
+            eVersionMinorMin and eVersionMinorMax.</remarks>
+        </member>
+        <member name="P:LibLAS.LASHeader.SystemId">
+            <summary>
+            system identifier
+            </summary>
+            <remarks>Default value is "libLAS" specified as the SystemIdentifier constant.
+            string is padded right with spaces and its length is 32 bytes.</remarks>
+        </member>
+        <member name="P:LibLAS.LASHeader.SoftwareId">
+            <summary>
+            software identifier
+            </summary>
+            <remarks>Default value is "libLAS 1.0", specified as the SoftwareIdentifier constant.
+            String is padded right with spaces and its length is 32 bytes.</remarks>
+        </member>
+        <member name="P:LibLAS.LASHeader.CreationDOY">
+            <summary>
+            day of year of file creation date.
+            </summary>
+            <remarks>Use full date structure instead of Julian date number.
+            value is lower than number 366.</remarks>
+        </member>
+        <member name="P:LibLAS.LASHeader.CreationYear">
+            <summary>
+            year of file creation date.
+            </summary>
+            <remarks>value is lower than number 9999.</remarks>
+        </member>
+        <member name="P:LibLAS.LASHeader.HeaderSize">
+            <summary>
+            number of bytes of generic verion of public header block storage.
+            </summary>
+            <remarks>Standard version of the public header block is 227 bytes long.</remarks>
+        </member>
+        <member name="P:LibLAS.LASHeader.DataOffset">
+            <summary>
+            number of bytes from the beginning to the first point record.
+            </summary>
+        </member>
+        <member name="P:LibLAS.LASHeader.VariableLengthRecordsCount">
+            <summary>
+            Returns the number of variable length records in the header
+            </summary>
+        </member>
+        <member name="P:LibLAS.LASHeader.DataFormatId">
+            <summary>
+            the data format id for the file.  
+            </summary>
+            <remarks>The value should be 1 or 0, with 1 being points that contain
+            time values and 0 being points that do not.</remarks>
+        </member>
+        <member name="P:LibLAS.LASHeader.DataRecordLength">
+            <summary>
+            return the record length for the points based on their data format id in bytes.
+            </summary>
+        </member>
+        <member name="P:LibLAS.LASHeader.PointRecordsCount">
+            <summary>
+            number of point records in the file.  
+            </summary>
+            <remarks>This value may not reflect the actual number of point
+            records in the file.</remarks>
         </member>
         <member name="M:LibLAS.LASHeader.GetPointRecordsByReturnCount(System.Int32)">
             <summary>
@@ -327,106 +457,6 @@
             </summary>
             <param name="index">the index starting from 0 of the variable length record to delete</param>
         </member>
-        <member name="P:LibLAS.LASHeader.FileSignature">
-            <summary>
-            Get ASPRS LAS file signature.
-            </summary>
-            <remarks>The only value allowed as file signature is "LASF",</remarks>
-        </member>
-        <member name="P:LibLAS.LASHeader.FileSourceId">
-            <summary>
-            file source identifier.
-            </summary>
-            <remarks> should be set to a value between 1 and 65535.</remarks>
-        </member>
-        <member name="P:LibLAS.LASHeader.Reserved">
-            <summary>
-            Get value field reserved by the ASPRS LAS Specification.
-            </summary>
-            <remarks>This field is always filled with 0.</remarks>
-        </member>
-        <member name="P:LibLAS.LASHeader.ProjectId">
-            <summary>
-            Get project identifier.
-            </summary>
-            <remarks>return Global Unique Identifier.</remarks>
-        </member>
-        <member name="P:LibLAS.LASHeader.VersionMajor">
-            <summary>
-            major component of version of LAS format.
-            </summary>
-            <remarks>Always 1 as the only valid value. value between
-            eVersionMajorMin and eVersionMajorMax (always 1).</remarks>
-        </member>
-        <member name="P:LibLAS.LASHeader.VersionMinor">
-            <summary>
-            minor component of version of LAS format.
-            </summary>
-            <remarks>Valid values are 1 or 0. value between
-            eVersionMinorMin and eVersionMinorMax.</remarks>
-        </member>
-        <member name="P:LibLAS.LASHeader.SystemId">
-            <summary>
-            system identifier
-            </summary>
-            <remarks>Default value is "libLAS" specified as the SystemIdentifier constant.
-            string is padded right with spaces and its length is 32 bytes.</remarks>
-        </member>
-        <member name="P:LibLAS.LASHeader.SoftwareId">
-            <summary>
-            software identifier
-            </summary>
-            <remarks>Default value is "libLAS 1.0", specified as the SoftwareIdentifier constant.
-            String is padded right with spaces and its length is 32 bytes.</remarks>
-        </member>
-        <member name="P:LibLAS.LASHeader.CreationDOY">
-            <summary>
-            day of year of file creation date.
-            </summary>
-            <remarks>Use full date structure instead of Julian date number.
-            value is lower than number 366.</remarks>
-        </member>
-        <member name="P:LibLAS.LASHeader.CreationYear">
-            <summary>
-            year of file creation date.
-            </summary>
-            <remarks>value is lower than number 9999.</remarks>
-        </member>
-        <member name="P:LibLAS.LASHeader.HeaderSize">
-            <summary>
-            number of bytes of generic verion of public header block storage.
-            </summary>
-            <remarks>Standard version of the public header block is 227 bytes long.</remarks>
-        </member>
-        <member name="P:LibLAS.LASHeader.DataOffset">
-            <summary>
-            number of bytes from the beginning to the first point record.
-            </summary>
-        </member>
-        <member name="P:LibLAS.LASHeader.VariableLengthRecordsCount">
-            <summary>
-            Returns the number of variable length records in the header
-            </summary>
-        </member>
-        <member name="P:LibLAS.LASHeader.DataFormatId">
-            <summary>
-            the data format id for the file.  
-            </summary>
-            <remarks>The value should be 1 or 0, with 1 being points that contain
-            time values and 0 being points that do not.</remarks>
-        </member>
-        <member name="P:LibLAS.LASHeader.DataRecordLength">
-            <summary>
-            return the record length for the points based on their data format id in bytes.
-            </summary>
-        </member>
-        <member name="P:LibLAS.LASHeader.PointRecordsCount">
-            <summary>
-            number of point records in the file.  
-            </summary>
-            <remarks>This value may not reflect the actual number of point
-            records in the file.</remarks>
-        </member>
         <member name="P:LibLAS.LASHeader.GUID">
             <summary>
             GUID value for the header.
@@ -438,39 +468,49 @@
             sets and gets the Proj4 in the header.
             </summary>
         </member>
-        <member name="F:LibLAS.LASHeader.FormatVersion.eVersionMajorMin">
-            Minimum of major component
-        </member>
-        <member name="F:LibLAS.LASHeader.FormatVersion.eVersionMajorMax">
-            Maximum of major component        
-        </member>
-        <member name="F:LibLAS.LASHeader.FormatVersion.eVersionMinorMin">
-            Minimum of minor component
-        </member>
-        <member name="F:LibLAS.LASHeader.FormatVersion.eVersionMinorMax">
-            Maximum of minor component
-        </member>
-        <member name="T:LibLAS.LASHeader.PointFormat">
-            Versions of point record format.
-        </member>
-        <member name="F:LibLAS.LASHeader.PointFormat.ePointFormat0">
-            Point Data Format \e 0
-        </member>
-        <member name="F:LibLAS.LASHeader.PointFormat.ePointFormat1">
-            Point Data Format \e 1
-        </member>
-        <member name="T:LibLAS.LASHeader.PointSize">
-            Number of bytes of point record storage in particular format.
-        </member>
-        <member name="F:LibLAS.LASHeader.PointSize.ePointSize0">
-            Size of point record in data format \e 0
-        </member>
-        <member name="F:LibLAS.LASHeader.PointSize.ePointSize1">
-            Size of point record in data format \e 1
-        </member>
         <member name="T:LibLAS.LASPoint">
             <summary>
             LASPoint class
+            </summary>
+        </member>
+        <member name="T:LibLAS.LASPoint.DataMemberFlag">
+            <summary>
+            Returns a bitfield representing the validity of various members.
+            </summary>
+        </member>
+        <member name="F:LibLAS.LASPoint.DataMemberFlag.eReturnNumber">
+            <summary>
+            ReturnNumber property flag.
+            </summary>
+        </member>
+        <member name="F:LibLAS.LASPoint.DataMemberFlag.eNumberOfReturns">
+            <summary>
+            NumberOfReturns property flag.
+            </summary>
+        </member>
+        <member name="F:LibLAS.LASPoint.DataMemberFlag.eScanDirection">
+            <summary>
+            ScanDirection property flag.
+            </summary>
+        </member>
+        <member name="F:LibLAS.LASPoint.DataMemberFlag.eFlightLineEdge">
+            <summary>
+            FlightLineEdge property flag.
+            </summary>
+        </member>
+        <member name="F:LibLAS.LASPoint.DataMemberFlag.eClassification">
+            <summary>
+            Classification property flag.
+            </summary>
+        </member>
+        <member name="F:LibLAS.LASPoint.DataMemberFlag.eScanAngleRank">
+            <summary>
+            ScanAngleRank property flag.
+            </summary>
+        </member>
+        <member name="F:LibLAS.LASPoint.DataMemberFlag.eTime">
+            <summary>
+            Time property flag.
             </summary>
         </member>
         <member name="F:LibLAS.LASPoint.mustDestroy">
@@ -604,46 +644,6 @@
         <member name="P:LibLAS.LASPoint.Time">
             <summary>
              time for the point.
-            </summary>
-        </member>
-        <member name="T:LibLAS.LASPoint.DataMemberFlag">
-            <summary>
-            Returns a bitfield representing the validity of various members.
-            </summary>
-        </member>
-        <member name="F:LibLAS.LASPoint.DataMemberFlag.eReturnNumber">
-            <summary>
-            ReturnNumber property flag.
-            </summary>
-        </member>
-        <member name="F:LibLAS.LASPoint.DataMemberFlag.eNumberOfReturns">
-            <summary>
-            NumberOfReturns property flag.
-            </summary>
-        </member>
-        <member name="F:LibLAS.LASPoint.DataMemberFlag.eScanDirection">
-            <summary>
-            ScanDirection property flag.
-            </summary>
-        </member>
-        <member name="F:LibLAS.LASPoint.DataMemberFlag.eFlightLineEdge">
-            <summary>
-            FlightLineEdge property flag.
-            </summary>
-        </member>
-        <member name="F:LibLAS.LASPoint.DataMemberFlag.eClassification">
-            <summary>
-            Classification property flag.
-            </summary>
-        </member>
-        <member name="F:LibLAS.LASPoint.DataMemberFlag.eScanAngleRank">
-            <summary>
-            ScanAngleRank property flag.
-            </summary>
-        </member>
-        <member name="F:LibLAS.LASPoint.DataMemberFlag.eTime">
-            <summary>
-            Time property flag.
             </summary>
         </member>
         <member name="T:LibLAS.LASReader">

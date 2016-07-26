@@ -19,6 +19,9 @@ SET(LIBLAS_C_LIB_VERSION "2.3.0")
 SET(LIBLAS_C_LIB_SOVERSION "3")
 SET(OSGEO4W_UPSTREAM_RELEASE "1")
 
+SET(BOOST_ROOT "C:\Program Files (x86)\boost")
+SET(BOOST_LIBRARYDIR "${BOOST_ROOT}\lib64-msvc-14.0")
+
 if(WIN32)
   # Name of C++ library
   set(LIBLAS_LIB_NAME liblas)
